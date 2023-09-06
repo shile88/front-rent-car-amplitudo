@@ -1,0 +1,13 @@
+@import '../../../assets/styles/globalMixins';
+@import '../../../assets/styles/globalVariables';
+
+.button{
+    border-radius: 6px;
+    border: 1px solid $text-black;
+    background-color: $text-orange;
+    color: $text-black;
+    font-family: "Gilroy-Bold", sans-serif;
+    font-size: 14px;
+    padding: 4px 8px;
+    cursor: pointer;
+  }

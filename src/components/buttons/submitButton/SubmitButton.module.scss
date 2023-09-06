@@ -1,0 +1,20 @@
+@import '../../../assets/styles/globalMixins';
+@import '../../../assets/styles/globalVariables';
+
+.button{
+    border-radius: 6px;
+    border: 1px solid $text-black;
+    background-color: $text-orange;
+    color: $text-black;
+    font-family: "Gilroy-Bold", sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+  
+    &:hover{
+      background-color: $text-orange;
+      color: white;
+    }
+  }

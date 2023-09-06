@@ -1,0 +1,42 @@
+@import '../../assets/styles/globalVariables.scss';
+@import '../../assets/styles/globalMixins.scss';
+
+
+.container{
+    width: 100%;
+    padding: 4px 30px;
+  
+    label{
+      display: block;
+      margin-bottom: 7px;
+      font-family: "Gilroy-Regular", sans-serif;
+      font-size: 14px;
+      color: var(--text-color);
+    }
+  
+    input{
+        font-size: 1.5rem;
+        color: #ababab;
+        //font-family: $text-font;
+        border: 1px solid #ccd7e6;
+        border-radius: 3px;
+        font-weight: 400;
+        padding: 1.2rem 1.3rem;
+        outline: none;
+  
+      &::-webkit-input-placeholder { /* Edge */
+        color: var(--nav-item-color);
+        font-family: "Gilroy-Regular", sans-serif;
+      }
+  
+      &:-ms-input-placeholder { /* Internet Explorer 10-11 */
+        color: var(--nav-item-color);
+        font-family: "Gilroy-Regular", sans-serif;
+      }
+  
+      &::placeholder {
+        color: var(--nav-item-color);
+        font-family: "Gilroy-Regular", sans-serif;
+      }
+    }
+  }

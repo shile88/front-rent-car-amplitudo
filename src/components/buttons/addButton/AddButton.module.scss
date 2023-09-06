@@ -1,0 +1,45 @@
+@import '../../../assets/styles/globalMixins';
+@import '../../../assets/styles/globalVariables';
+
+.button{
+    border-radius: 6px;
+    border: 1px solid $text-orange;
+    background-color: white;
+    color: $text-orange;
+    font-family: "Gilroy-Bold", sans-serif;
+    font-size: 14px;
+    padding: 8px 18px 8px 26px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+  
+    &:before,
+    &:after{
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      width: 10px;
+      height: 2px;
+      background-color: $text-orange;
+      transition: inherit;
+    }
+  
+    &:before{
+      transform: translateY(-50%) rotate(0);
+    }
+  
+    &:after{
+      transform: translateY(-50%) rotate(90deg);
+    }
+  
+    &:hover{
+      background-color: $text-orange;
+      color: white;
+  
+      &:before,
+      &:after{
+        background-color: white;
+      }
+    }
+  }

@@ -1,0 +1,20 @@
+
+@mixin responsive($query) {
+    @media ( min-width: #{$query} ) {
+        @content;
+    }
+}
+
+@mixin grid($number) {
+    display: grid;
+    grid-template-columns: repeat($number, 1fr);
+    grid-gap: 10px;
+    @content;
+}
+
+@mixin button($bgColor, $fontSize) {
+    background-color: $bgColor;
+    font-size: $fontSize;
+    
+    @content;
+}
