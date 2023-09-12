@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import AddButton from "../../components/buttons/addButton/AddButton";
 import Button from "../../components/buttons/button/Button";
+import PageContent from "../../components/pageContent/PageContent";
 import ReservationForm from "./reservationForm/ReservationForm";
 import SearchField from "../../components/search/Search";
 import Table from "../../components/table/Table";
@@ -27,7 +28,7 @@ const Reservations = () => {
     }
   );
 
-  const deleteCategory = useMutation((data) =>
+  const deleteReservation = useMutation((data) =>
   reservationService
       .delete(data)
       .then((r) => {
@@ -43,7 +44,7 @@ const Reservations = () => {
   );
 
   const onDelete = (id) => {
-    deleteCategory.mutate(id);
+    deleteReservation.mutate(id);
   };
 
   const header = [
@@ -85,7 +86,7 @@ const Reservations = () => {
       render: (data) => {
         return (
           <div className={classes["action-buttons"]}>
-            <Button label={"Edit"} onClick={() => openForm(data?.id)} />
+            <Button label={"Edit"} onClick={() => openForm(data?.id, false)} />
             <Button label={"Delete"} onClick={() => onDelete(data?.id)} />
           </div>
         );
@@ -97,34 +98,31 @@ const Reservations = () => {
     close();
   };
 
-  const openForm = (id) => {
+  const openForm = (id, disabled) => {
     open(
-      "Reservation",
-      <ReservationForm key={`reservation-${id}`} id={id} close={closeForm} />
+      disabled ? 'Reservations details' : 'Edit reservation',
+      <ReservationForm key={`reservation-${id}`} id={id} close={closeForm} disabled={disabled}/>
     );
   };
 
   return (
-    <div className={`${classes["container"]} `}>
-      <h1>Reservations</h1>
-      <div>
-        <SearchField
-          placeholder={"Insert first name or email for search"}
-          onChange={(e) => {
-            setQuery(e.target.value);
-          }}
-        />
-      </div>
-
-      <AddButton
-        onClick={() => navigate("/reservations/add")}
-        className={classes["add-button"]}
-      />
-
-      <div className={classes["table-container"]}>
-        <Table header={header} data={data} />
-      </div>
-    </div>
+    <PageContent
+      title="Reservations"
+      placeholder="Insert first name or email for search"
+      onChange={(e) => {
+        setQuery(e.target.value);
+      }}
+      onClick={() => navigate("/reservations/add")}
+      header={header}
+      data={data}
+      onRow={(record) => {
+        return {
+          onClick: (e) => {           
+            if (e.target.cellIndex !== undefined) openForm(record?.id, true);
+          },        
+        };
+      }}
+    />
   );
 };
 

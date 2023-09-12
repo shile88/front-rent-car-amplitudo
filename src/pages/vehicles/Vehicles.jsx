@@ -1,10 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import AddButton from "../../components/buttons/addButton/AddButton";
 import AddVehicle from "./addVehicle/AddVehicle";
 import Button from "../../components/buttons/button/Button";
-import SearchField from "../../components/search/Search";
-import Table from "../../components/table/Table";
+import PageContent from "../../components/pageContent/PageContent";
 import { message } from "antd";
 import { useModal } from "../../context/ModalContex";
 import { useState } from "react";
@@ -88,30 +86,22 @@ const Vehicles = () => {
 
   const openForm = (id) => {
     open(
-      "Vehicle",
+      id ? 'Edit vehicle' : 'Add vehicle',
       <AddVehicle key={`vehicle-${id}`} id={id} close={closeForm} />
     );
   };
 
   return (
-    <div >   
-      <h1>Cars</h1>
-      <SearchField
-        placeholder={"Insert plate number for search"}
-        onChange={(e) => {
-          setQuery(e.target.value);
-        }}
-        
-      />
-      <AddButton
-        onClick={() => openForm(null)}
-       
-      />
-   
-      <div >
-        <Table header={header} data={data.filter((item) => item.plateNumber.toLowerCase().includes(query.toLowerCase()))} />
-      </div>
-    </div>
+    <PageContent
+      title="Vehicles"
+      placeholder="Insert plate number for search"
+      onChange={(e) => {
+        setQuery(e.target.value);
+      }}
+      onClick={() => openForm(null)}
+      header={header}
+      data={data.filter((item) => item.plateNumber.toLowerCase().includes(query.toLowerCase()))}
+    />
   );
 };
 

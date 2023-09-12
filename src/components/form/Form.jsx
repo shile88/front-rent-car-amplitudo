@@ -1,6 +1,8 @@
+import { Form as AntdForm } from "antd";
 import Input from "../input/Input";
 import Select from "../select/Select";
 import SubmitButton from "../buttons/submitButton/SubmitButton";
+import classes from './Form.module.scss'
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -14,6 +16,8 @@ const Form = ({
   citiesData,
   carData,
   singleCustomerData,
+  singleCarData,
+  disabled
 }) => {
   const {
     control,
@@ -26,14 +30,9 @@ const Form = ({
   });
 
   return (
-    <>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "16px",
-        }}
+      <AntdForm
+        onFinish={handleSubmit(onSubmit)}
+        className={classes.form}
       >
         {countriesData && (
           <Select
@@ -44,6 +43,7 @@ const Form = ({
             placeholder="Choose country"
             error={errors?.country?.message}
             singleCustomerData={singleCustomerData}
+            disabled={disabled}
           />
         )}
 
@@ -56,6 +56,7 @@ const Form = ({
               name="locationPickup"
               placeholder="Choose city"
               error={errors?.city?.message}
+              disabled={disabled}
             />
             <Select
               control={control}
@@ -64,6 +65,7 @@ const Form = ({
               name="locationDropoff"
               placeholder="Choose city"
               error={errors?.city?.message}
+              disabled={disabled}
             />
           </>
         )}
@@ -76,6 +78,7 @@ const Form = ({
             name="customer"
             placeholder="Choose customer"
             error={errors?.customer?.message}
+            disabled={disabled}
           />
         )}
         {formData.map((data, index) => (
@@ -89,13 +92,17 @@ const Form = ({
             watch={watch}
             setValue={setValue}
             carData={carData}
-            singleCustomerData={singleCustomerData}
+            singleData={singleCustomerData || singleCarData}
+            disabled={disabled}
           />
         ))}
 
-        <SubmitButton label="Submit"></SubmitButton>
-      </form>
-    </>
+          <div className={classes.button}>
+            <SubmitButton label="Submit"/>
+          </div>
+        
+      </AntdForm>
+    
   );
 };
 

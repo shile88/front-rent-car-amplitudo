@@ -7,8 +7,10 @@ import { useNavigate } from "react-router-dom";
 const Sidebar = () => {
   const navigate = useNavigate();
   return (
-    <div className={classes["side-menu"]}>
+    <div className={classes["side-menu-wrapper"]}>
       <Menu
+        mode="vertical"
+        className={classes['side-menu']}
         onClick={(item) => {
           navigate(item.key);
         }}

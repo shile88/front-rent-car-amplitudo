@@ -13,6 +13,7 @@ const Modal = ({
                       open={open}
                       footer={null}
                       onCancel={close}>
+                        
         {content}
     </AntdModal>
 }

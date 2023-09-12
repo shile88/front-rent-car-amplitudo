@@ -1,8 +1,8 @@
 import {createContext, useContext, useEffect, useState} from "react";
 
-import {adminService} from "../services/AdminService.js";
 import {storageKeys} from "../config/config.js";
 import {storageService} from "../services/StorageService.js";
+import { userService } from "../services/UserService.js";
 
 /*const users = [
     {
@@ -19,51 +19,51 @@ import {storageService} from "../services/StorageService.js";
     }
 ]*/
 
-const AdminContext = createContext();
+const UserContext = createContext();
 
-const AdminProvider = ({children}) => {
-    const [adminData, setAdminData] = useState(null);
+const UserProvider = ({children}) => {
+    const [userData, setUserData] = useState(null);
     const [dataLoaded, setDataLoaded] = useState(false);
 
-    const getAdmin = async () => {
+    const getUser = async () => {
         setDataLoaded(false)
         if(storageService.exists(storageKeys.USER)){
-            adminService.getCurrentAdminData()
+            userService.getCurrentUserData()
                 .then(r => {
-                    setAdminData(r)
+                    setUserData(r)
                     setDataLoaded(true)
                 })
                 .catch(() => {
-                    setAdminData(null)
+                    setUserData(null)
                     setDataLoaded(true)
                 })
         }else{
-            setAdminData(null)
+            setUserData(null)
             setDataLoaded(true)
         }
     }
 
     const logout = () => {
-        setAdminData(null)
+        setUserData(null)
         storageService.clear()
     }
 
     useEffect(() => {
-        getAdmin()
+        getUser()
     }, [])
     
 
-    return <AdminContext.Provider value={{
-        adminData: adminData,
-        refreshAdminData: () => getAdmin(),
+    return <UserContext.Provider value={{
+        userData: userData,
+        refreshUserData: () => getUser(),
         logout: () => logout()
     }}>
         {dataLoaded && children}
-    </AdminContext.Provider>
+    </UserContext.Provider>
 }
 
-export const useAdminData = () => {
-    return useContext(AdminContext)
+export const useUserData = () => {
+    return useContext(UserContext)
 }
 
-export default AdminProvider;
+export default UserProvider;

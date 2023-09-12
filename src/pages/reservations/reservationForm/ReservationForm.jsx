@@ -8,9 +8,8 @@ import { format } from "date-fns";
 import { message } from "antd";
 import { reservationService } from "../../../services/ReservationService";
 
-const ReservationForm = ({ carData, id }) => {
+const ReservationForm = ({ carData, id, close, disabled }) => {
   const queryClient = useQueryClient();
-
   const { data: customersData } = useQuery(
     ["customers-data"],
     () => customerService.getAll(),
@@ -67,7 +66,7 @@ const ReservationForm = ({ carData, id }) => {
       .catch((err) => message.error("There has been an error!"));
   };
 
-  const onSave = (formData) => {
+ const onSave = (formData) => {
     const saveObject = {
       date_from: format(formData.dateFrom, "yyyy-MM-dd"),
       date_to: format(formData.dateTo, "yyyy-MM-dd"),
@@ -92,15 +91,16 @@ const ReservationForm = ({ carData, id }) => {
     }
   );
 
+  console.log(carData )
+
   return (
     <>
       {singleReservationData ? (
         <EditReservationValidation
-          carData={carData}
           onSave={onSave}
-          citiesData={citiesData}
-          customersData={customersData}
           singleReservationData={singleReservationData}
+          citiesData={citiesData}
+          disabled={disabled}
         />
       ) : (
         <ReservationValidation

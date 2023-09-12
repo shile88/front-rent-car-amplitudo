@@ -1,4 +1,4 @@
-class AdminModel {
+class UserModel {
     constructor(responseData) {
         this.id = responseData?.data.id;
         this.firstName = responseData?.data.first_name;
@@ -11,4 +11,4 @@ class AdminModel {
     }
 }
 
-export default AdminModel;
+export default UserModel;

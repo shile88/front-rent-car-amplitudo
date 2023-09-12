@@ -2,17 +2,19 @@ import * as yup from "yup";
 
 import Form from "../../components/form/Form";
 
-const CustomerValidation = ({ onSave, countriesData, singleCustomerData }) => {
+const CustomerValidation = ({ onSave, countriesData, singleCustomerData, disabled }) => {
   const schema = yup.object().shape({
     firstName: yup
       .string()
       .trim()
+      .matches(/^[A-Za-z]+$/, 'Name can only contain letters')
       .required("Field required!")
       .min(2, "Minimum length is 2!")
       .max(50, "Maximum length is 50!"),
     lastName: yup
       .string()
       .trim()
+      .matches(/^[A-Za-z]+$/, 'Name can only contain letters')
       .required("Field required!")
       .min(2, "Minimum length is 2!")
       .max(50, "Maximum length is 50!"),
@@ -20,12 +22,12 @@ const CustomerValidation = ({ onSave, countriesData, singleCustomerData }) => {
     passportNumber: yup
       .string()
       .required("Field required!")
-      .length(12, "Field must be exactly 12 characters long!"),
+      .matches(/^\d{12}$/, 'Passport number must be exactly 12 digits'),
     phoneNumber: yup
       .string()
       .required("Field required!")
-      .min(9, "Minimum length is 9!")
-      .max(15, "Maximum length is 15!"),
+      .matches(/^\d+$/, 'Phone number can only contain numbers')
+      .min(9, 'Phone number must be at least 9 digits'),
     email: yup.string().email().required("Field required!"),
     note: yup.string().max(15, "Maximum length is 15!"),
   });
@@ -39,7 +41,7 @@ const CustomerValidation = ({ onSave, countriesData, singleCustomerData }) => {
     {
       label: "Last Name",
       name: "lastName",
-      type: "password",
+      type: "text",
     },
     {
       label: "Email",
@@ -71,6 +73,7 @@ const CustomerValidation = ({ onSave, countriesData, singleCustomerData }) => {
         countriesData={countriesData}
         schema={schema}
         singleCustomerData={singleCustomerData}
+        disabled={disabled}
       />
     </div>
   );

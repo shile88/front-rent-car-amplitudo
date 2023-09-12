@@ -1,16 +1,18 @@
+import BgShape from "../../assets/images/hero-bg.png";
+import HeroCar from "../../assets/images/main-car.png";
 import LoginValidation from "../../validation/loginValidation/LoginValidation";
-import Welcome from "../../components/welcome/Welcome";
 import { authService } from "../../services/AuthService.js";
-import {message} from "antd";
+import classes from "./Login.module.scss";
+import { message } from "antd";
 import { storageKeys } from "../../config/config.js";
 import { storageService } from "../../services/StorageService.js";
-import { useAdminData } from "../../context/AdminContex.jsx";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useUserData } from "../../context/UserContex.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { refreshAdminData } = useAdminData();
+  const { refreshUserData } = useUserData();
   const [errorMsg, setErrorMsg] = useState();
 
   const onSubmit = (formData) => {
@@ -19,18 +21,29 @@ const Login = () => {
       .then(async (r) => {
         message.success("Succesfully logged in!");
         storageService.set(storageKeys.USER, r.getToken());
-        await refreshAdminData();
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 300);
+        await refreshUserData();
+        navigate("/dashboard");
       })
       .catch((err) => {
-          setErrorMsg(err?.response.data);     
+        setErrorMsg(err?.response.data);
       });
   };
 
   return (
-    <Welcome component={<LoginValidation onSubmit={onSubmit} errorMsg={errorMsg}/>}/>
+    <div className={classes.container}>
+      <div className={classes["login-form"]}>
+        <div className={classes['login-text']}>
+          <h4>Plan your trip now</h4>
+          <h1>
+            Save <span>big</span> with our car rental
+          </h1>
+          <LoginValidation onSubmit={onSubmit} errorMsg={errorMsg} />
+        </div>
+      </div>
+      <div className={classes["car-wrapper"]}>
+        <img src={HeroCar} alt="car-img" className={classes["car-img"]} />
+      </div>
+    </div>
   );
 };
 

@@ -52,10 +52,18 @@ const AddVehicle = ({ id, close }) => {
         number_of_seats: formData.numberOfSeats,
         daily_rate: formData.dailyRate,
         note: formData.note,
-        id: id ? id : ''
+    }
+    const editObject = { 
+        plate_number: formData.plateNumber,
+        production_year: formData.productionYear,
+        type: formData.type,
+        number_of_seats: formData.numberOfSeats,
+        daily_rate: formData.dailyRate,
+        note: formData.note,
+        id: id
     }
     if (id) {
-      edit.mutate(saveObject);
+      edit.mutate(editObject);
     } else {
       add.mutate(saveObject);
     }
@@ -65,9 +73,8 @@ const AddVehicle = ({ id, close }) => {
     enabled: Boolean(id),
   });
 
-console.log(singleCarData)
   return (
-    <VehicleValidation onSave={onSave}/>
+    <VehicleValidation onSave={onSave} singleCarData={singleCarData}/>
   );
 };
 

@@ -1,7 +1,7 @@
-import "./Select.module.scss";
+import { Form as AntdForm, Select as AntdSelect } from "antd";
 
-import { Select as AntdSelect } from "antd";
 import { Controller } from "react-hook-form";
+import classes from "./Select.module.scss";
 
 const Select = ({
   label = "",
@@ -10,9 +10,10 @@ const Select = ({
   selectData,
   control,
   error,
+  disabled
 }) => {
   return (
-    <div>
+    <AntdForm.Item className={classes['select-item']} hasFeedback validateStatus={error && error.length > 0 ? 'error' : 'success'}>
       {label && label?.length > 0 && <label>{label}</label>}
       {control && (
         <Controller
@@ -35,12 +36,13 @@ const Select = ({
               }
               allowClear
               {...field}
+              disabled={disabled}
             />
           )}
         />
       )}
-      {error && error?.length > 0 && <span>{error}</span>}
-    </div>
+      {error && error?.length > 0 && <span className={classes.error}>{error}</span>}
+    </AntdForm.Item>
   );
 };
 

@@ -1,5 +1,4 @@
-import "./Input.module.scss";
-
+import { Form as AntdForm, Input as AntdInput } from "antd";
 import {
   addDays,
   differenceInCalendarDays,
@@ -8,8 +7,8 @@ import {
   startOfDay,
 } from "date-fns";
 
-import { Input as AntdInput } from "antd";
 import { Controller } from "react-hook-form";
+import classes from "./Input.module.scss";
 import { useEffect } from "react";
 
 const Input = ({
@@ -22,7 +21,8 @@ const Input = ({
   watch,
   setValue,
   carData,
-  singleCustomerData,
+  singleData,
+  disabled
 }) => {
   const today = startOfDay(new Date());
   const formattedDate = format(today, "yyyy-MM-dd");
@@ -36,21 +36,19 @@ const Input = ({
   const endDate = parseISO(watchEndDate);
 
   useEffect(() => {
-    if ((name === "dateFrom" || name === 'dateTo') && type === "date") {
+    if ((name === "dateFrom" || name === "dateTo") && type === "date") {
       setValue("dateFrom", formattedDate);
       setValue("dateTo", newFormattedDate);
     }
-    if(singleCustomerData) {
-        setValue("firstName", singleCustomerData.firstName);
-        setValue("lastName", singleCustomerData.lastName);
-        setValue("country", singleCustomerData.country);
-        setValue("passportNumber", singleCustomerData.passportNumber);
-        setValue("phoneNumber", singleCustomerData.phoneNumber);
-        setValue("email", singleCustomerData.email);
-        setValue("note", singleCustomerData.note);
+    if (singleData) {
+      const keys = Object.keys(singleData);
+      {
+        keys.map((key) => {
+          setValue(key, singleData[key]);
+        });
+      }
     }
-  }, [singleCustomerData]);
-
+  }, [singleData]);
 
   useEffect(() => {
     const daysDifference = differenceInCalendarDays(endDate, startDate);
@@ -58,7 +56,11 @@ const Input = ({
   }, [endDate, startDate]);
 
   return (
-    <div>
+    <AntdForm.Item
+      className={classes["input-item"]}
+      hasFeedback
+      validateStatus={error && error.length > 0 ? "error" : "success"}
+    >
       {label && label?.length > 0 && <label>{label}</label>}
       {control && (
         <Controller
@@ -67,14 +69,14 @@ const Input = ({
           render={({ field }) => (
             <AntdInput
               type={type}
-              className={"custom-input"}
+              allowClear
+              className={classes.input}
               placeholder={placeholder}
               {...field}
-              
               disabled={
                 name === "priceTotal" ||
-                (singleCustomerData && name === "passportNumber") || 
-                (singleCustomerData && name === "phoneNumber")
+                (singleData && name === "passportNumber") ||
+                (singleData && name === "phoneNumber") || disabled
                   ? true
                   : false
               }
@@ -82,8 +84,8 @@ const Input = ({
           )}
         />
       )}
-      {error && error?.length > 0 && <span>{error}</span>}
-    </div>
+      {error && error?.length > 0 && <span className={classes.error}>{error}</span>}
+    </AntdForm.Item>
   );
 };
 

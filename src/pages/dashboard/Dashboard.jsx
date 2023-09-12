@@ -1,7 +1,5 @@
-import { Image, Space, Typography } from "antd";
-
-import BgShape from "../../assets/images/hero-bg.png";
 import HeroCar from "../../assets/images/main-car.png";
+import { Image } from "antd";
 import classes from "./Dashboard.module.scss";
 
 const Dashboard = () => {

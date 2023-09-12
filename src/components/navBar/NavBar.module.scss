@@ -2,43 +2,14 @@
 @import '../../assets/styles/globalMixins.scss';
 
 .header {
-  height: auto;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 30px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 
   .title {
     margin-left: 30px;
+    color: #ff4d30;
   }
 }
-
-
-
-/*.navbar {
-    height: auto;
-    padding: 2.7rem 2rem;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: transparent;
-    z-index: 99999;
-    margin: 0 auto; 
-    display: flex;
-    align-items: center;
-
-    h2 {
-      margin-left: 5%;
-      margin-right: 2%;
-    }
-}
-
-.navbar_img {
-    width: 14.5rem;
-
-    img {
-      width: 100%;
-      height: 100%;
-    }  
-}*/

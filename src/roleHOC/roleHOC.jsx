@@ -1,12 +1,11 @@
 import Client from "../pages/client/Client";
-import Customer from "../pages/customer/Customer";
-import { useAdminData } from "../context/AdminContex";
+import { useUserData } from "../context/UserContex";
 
 const withRole = (Component) => {
     return (props) => {
-        const {adminData} = useAdminData();
+        const {userData} = useUserData();
 
-        return adminData?.role === 1 ? <Component {...props}/> : <Client />
+        return userData?.role === 1 ? <Component {...props}/> : <Client />
     }
     
 }

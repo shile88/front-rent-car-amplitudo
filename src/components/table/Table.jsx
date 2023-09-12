@@ -1,3 +1,5 @@
+import './Table.scss'
+
 import { Table as AntdTable } from "antd";
 
 const Table = ({ header, data, onRow }) => {
@@ -7,6 +9,8 @@ const Table = ({ header, data, onRow }) => {
       columns={header.map((item) => ({ ...item, dataIndex: item.index }))}
       dataSource={data}
       onRow={onRow}
+     className="table"
+     bordered
     />
   );
 };

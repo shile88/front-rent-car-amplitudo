@@ -1,10 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import AddButton from "../../components/buttons/addButton/AddButton";
 import AddCustomer from "./addCustomer/AddCustomer";
 import Button from "../../components/buttons/button/Button";
-import SearchField from "../../components/search/Search";
-import Table from "../../components/table/Table";
+import PageContent from "../../components/pageContent/PageContent";
 import { customerService } from "../../services/CustomerService";
 import { message } from "antd";
 import { useModal } from "../../context/ModalContex";
@@ -30,11 +28,10 @@ const Users = () => {
       .then((r) => {
         message.success("Succesfully deleted!");
         queryClient.invalidateQueries("customers");
-        queryClient.invalidateQueries("customer-single");
         close();
       })
       .catch((err) => {
-        console.log(err?.response?.data);
+        console.log(err);
         message.error("There has been an error!");
       })
   );
@@ -86,38 +83,38 @@ const Users = () => {
     close();
   };
 
-  const openForm = (id) => {
+  const openForm = (id, disabled) => {
     open(
-      "Customer",
-      <AddCustomer key={`customer-${id}`} id={id} close={closeForm} />
+      disabled ? 'Customer details' : "Edit Customer",
+      <AddCustomer
+        key={`customer-${id}`}
+        id={id}
+        close={closeForm}
+        disabled={disabled}
+      />
     );
   };
 
   return (
-    <div>
-      <h1>Customers</h1>
-      <div>
-        <SearchField
-          placeholder={"Insert first name or email for search"}
-          onChange={(e) => {
-            setQuery(e.target.value);
-          }}
-        />
-      </div>
-
-      <AddButton onClick={() => openForm(null)} />
-
-      <div>
-        <Table
-          header={header}
-          data={data.filter(
-            (item) =>
-              item.firstName.toLowerCase().includes(query.toLowerCase()) ||
-              item.email.toLowerCase().includes(query.toLowerCase())
-          )}
-        />
-      </div>
-    </div>
+    <PageContent
+      title="Customers"
+      placeholder="Insert first name or email for search"
+      onChange={(e) => setQuery(e.target.value)}
+      onClick={() => openForm(null)}
+      header={header}
+      data={data.filter(
+        (item) =>
+          item.firstName.toLowerCase().includes(query.toLowerCase()) ||
+          item.email.toLowerCase().includes(query.toLowerCase())
+      )}
+      onRow={(record) => {
+        return {
+          onClick: (e) => {           
+            if (e.target.cellIndex !== undefined) openForm(record?.id, true);
+          },        
+        };
+      }}
+    />
   );
 };
 

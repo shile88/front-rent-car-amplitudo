@@ -5,7 +5,7 @@ import { countryService } from "../../../services/CountryService";
 import { customerService } from "../../../services/CustomerService";
 import { message } from "antd";
 
-const AddCustomer = ({ id, close }) => {
+const AddCustomer = ({ id, close, disabled }) => {
   const queryClient = useQueryClient();
 
   const { data: countriesData } = useQuery(
@@ -23,7 +23,6 @@ const AddCustomer = ({ id, close }) => {
       .then((r) => {
         message.success("Succesfully added!");
         queryClient.invalidateQueries("customers");
-        queryClient.invalidateQueries("customer-single");
         close();
       })
       .catch((err) => {
@@ -36,7 +35,7 @@ const AddCustomer = ({ id, close }) => {
     return customerService
       .get(id)
       .then((res) => {
-        
+       
         return res;
       })
       .catch((err) => {
@@ -58,7 +57,6 @@ const AddCustomer = ({ id, close }) => {
       .then((r) => {
         message.success("Sucessfully edited!");
         queryClient.invalidateQueries("customers");
-        queryClient.invalidateQueries("customer-single");
         close();
       })
       .catch((err) => {
@@ -83,7 +81,7 @@ const AddCustomer = ({ id, close }) => {
       last_name: formData.lastName,
       email: formData.email,
       note: formData.note,
-      id: id ? id : ''
+      id: id 
     }
     if (id) {
       edit.mutate(editObject);
@@ -97,6 +95,7 @@ const AddCustomer = ({ id, close }) => {
       singleCustomerData={singleCustomerData}
       onSave={onSave}
       countriesData={countriesData}
+      disabled={disabled}
     />
   );
 };

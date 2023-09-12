@@ -10,12 +10,24 @@ import {
 } from "@ant-design/icons";
 
 import { Menu } from "antd";
+import { getStatusClassNames } from "antd/es/_util/statusUtils";
+import { storageService } from "../../../services/StorageService";
 import { useNavigate } from "react-router-dom";
+import { useUserData } from "../../../context/UserContex";
 
 function DropDown() {
   const navigate = useNavigate();
+  const { refreshUserData } = useUserData();
   const handleMenuClick = (item) => {
-    navigate(`/${item.key}`);
+    if (item.key === "logout") {
+      setTimeout(() => {
+        storageService.clear();
+        refreshUserData();
+        navigate("/login");
+      }, 500);
+    } else {
+      navigate(`/${item.key}`);
+    }
   };
 
   return (
@@ -23,6 +35,7 @@ function DropDown() {
       mode="horizontal"
       onClick={handleMenuClick}
       subMenuCloseDelay="0.2"
+      className='dropdown'
       items={[
         {
           label: <UserOutlined />,
@@ -31,17 +44,17 @@ function DropDown() {
             {
               label: "Add new customer",
               icon: <UserAddOutlined />,
-              key: "admin/all-customers",
+              key: "users",
             },
             {
               label: "Add new car",
               icon: <CarOutlined />,
-              key: "cars",
+              key: "vehicles",
             },
             {
               label: "Add new reservation",
               icon: <SmileOutlined />,
-              key: "reservation",
+              key: "reservations/add",
             },
             {
               label: "Change language",
@@ -52,6 +65,7 @@ function DropDown() {
               label: "Logout",
               icon: <LogoutOutlined />,
               key: "logout",
+              danger: true
             },
           ],
         },

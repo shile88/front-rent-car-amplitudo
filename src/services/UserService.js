@@ -1,7 +1,7 @@
-import AdminModel from "./models/AdminModel";
+import UserModel from "./models/UserModel";
 import {requestInstance} from "../config/requestInstance";
 
-class AdminService {
+class UserService {
     //apis used for user requests
     api = {
         account: '/account',
@@ -10,14 +10,14 @@ class AdminService {
     //parameters used in apis
     params = {}
 
-    getCurrentAdminData(){
+    getCurrentUserData(){
         return requestInstance.get(this.api.account)
             .then(r => {
-                return new AdminModel(r)
+                return new UserModel(r)
             })
             .catch(err => Promise.reject(err))
     }
 
 }
 
-export const adminService = new AdminService();
+export const userService = new UserService();

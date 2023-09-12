@@ -27,7 +27,7 @@ class ReservationService {
     //this returns single category
    get(id){
         return requestInstance.get(`${this.api.main}/${id}`)
-            .then(r => new ReservationModel(r.data))
+            .then(r => new ReservationModel(r.data.data))
             .catch(err => Promise.reject(err))
     }
 

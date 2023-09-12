@@ -1,21 +1,44 @@
 @import '../../assets/styles/globalVariables.scss';
 @import '../../assets/styles/globalMixins.scss';
 
-.hero-section { 
+.container { 
     background-color: $bg-gray;
-    width: 150vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+   
+   
   }
 
-  .bg-shape {
+  .login-form {
+    
+   
+    
+
+    .login-text {
+      color: red;
+      text-align: center;
+      font-size: 20px;
+     
+      h1 {
+        margin-bottom: 25px;
+      }
+    }
+
+    
+  }
+
+  .car-img {
+    width: 100%;
+    }
+
+  /*.bg-shape {
     position: absolute;
     top: 0;
     right: 0;
     z-index: 1;
-    height: 100vh;
-
-    @media (max-width: 800px) {
-      display: none;
-    }
+   
   }
   
   .hero-content {
@@ -40,4 +63,4 @@
         display: none;
       }
     }
-  }
+  }*/

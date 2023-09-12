@@ -3,9 +3,8 @@ import * as yup from "yup";
 import Form from "../../components/form/Form";
 import { startOfDay } from "date-fns";
 
-const EditReservationValidation = ({ onSave, customersData, citiesData, carData }) => {
+const EditReservationValidation = ({ onSave, disabled, singleReservationData, citiesData }) => {
   const schema = yup.object().shape({
-    customer: yup.number().required("Field required!"),
     dateFrom: yup
       .date()
       .required("Field required!")
@@ -20,21 +19,6 @@ const EditReservationValidation = ({ onSave, customersData, citiesData, carData 
   });
 
   const formData = [
-    {
-      label: "First Name",
-      name: "firstName",
-      type: "string",
-    },
-    {
-      label: "Last Name",
-      name: "lastName",
-      type: "string",
-    },
-    {
-      label: "Plate number",
-      name: "plateNumber",
-      type: "string",
-    },
     {
         label: "Date from",
         name: "dateFrom",
@@ -51,13 +35,13 @@ const EditReservationValidation = ({ onSave, customersData, citiesData, carData 
         type: "number",
       },
       {
-        label: "Dropoff location",
+        label: "Drop Off location",
         name: "locationDropoff",
         type: "number",
       },
       {
-        label: "Dropoff location",
-        name: "locationDropoff",
+        label: "Total price",
+        name: "priceTotal",
         type: "number",
       },
   ]; 
@@ -68,9 +52,9 @@ const EditReservationValidation = ({ onSave, customersData, citiesData, carData 
         formData={formData}
         onSubmit={onSave}
         schema={schema}
-        customersData={customersData}
+        disabled={disabled}
         citiesData={citiesData}
-        carData={carData}
+        singleReservationData={singleReservationData}
       />
     </div>
   );
