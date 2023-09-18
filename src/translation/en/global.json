@@ -1,0 +1,120 @@
+{
+    "header": {
+        "dropdown": {
+            "addCustomer" : "Add new customer",
+            "addVehicle" : "Add new vehicle",
+            "addReservation" : "Add new reservation",
+            "changeLang" : "Change language",
+            "logout" : "Logout"
+        }
+    },
+    "sidebar" : {
+        "users" : "Users",
+        "vehicles" : "Vehicles",
+        "reservations" : "Reservations"
+    },
+    "main" : {
+        "customersTitle" :  "Customers",
+        "vehiclesTitle" : "Vehicles",
+        "reservationsTitle" : "Reservations",
+        "rentVehicle" : "Click on vehicle to rent"
+    },
+    "table" : {
+        "name" : "Name",
+        "firstName" : "First name",
+        "firstNamePlaceholder" : "Input first name",
+        "lastName" : "Last name",
+        "lastNamePlaceholder" : "Input last name",
+        "passportNo" : "Passport number",
+        "passportNoPlaceholder" : "Input passport number",
+        "phoneNo" : "Phone number",
+        "phoneNoPlaceholder" : "Input phone number",
+        "notes" : "Notes",
+        "notesPlaceholder" : "Input notes",
+        "actions" : "Actions",
+        "emailPlaceholder" : "Input email",
+        "country" : "Country",
+        "countryPlaceholder" : "Input country",
+        "plateNumber" : "Plate number",
+        "plateNumberPlaceholder" : "Input plate number",
+        "productionYear" : "Production year",
+        "productionYearPlaceholder" : "Input production year",
+        "type" : "Type",
+        "typePlaceholder" : "Input vehicle type",
+        "numberOfSeats" : "Number of seats",
+        "numberOfSeatsPlaceholder" : "Input number of seats",
+        "dailyRate" : "Daily rate",
+        "dailyRatePlaceholder" : "Input daily rent rate",
+        "dateFrom" : "Date from",
+        "dateTo" : "Date to",
+        "pickupLocation" : "Pickup location",
+        "pickupLocationPlaceholder" : "Input pickup location",
+        "dropoffLocation" : "Drop off location",
+        "dropoffLocationPlaceholder" : "Input drop off location",
+        "totalPrice" : "Total price",
+        "customer" : "Customer",
+        "customerPlaceholder" : "Input customer",
+        "password" : "Password",
+        "passwordPlaceholder" : "Input password",
+        "createDate" : "Reserved at",
+        "rentDay" : "rent per day"
+    },
+    "buttons" : {
+        "add" : "Add",
+        "edit" : "Edit",
+        "delete" : "Delete",
+        "submit" : "Submit",
+        "addLabel" : "Add"
+    },
+    "search" : {
+        "customerSearch" : "Input first name or email for search",
+        "vehiclesSearch" : "Input plate number for search",
+        "placeholderStart" : "Start date",
+        "placeholderEnd" : "End date"
+    },
+    "modal" : {
+        "addCustomerTitle" : "Add customer",
+        "editCustomerTitle" : "Edit customer",
+        "showCustomerTitle" : "Customer details",
+        "addVehicleTitle" : "Add vehicle",
+        "editVehicleTitle" : "Edit vehicle",
+        "addReservationTitle" : "Add reservation",
+        "editReservationTitle" : "Edit reservation",
+        "showReservationTitle" : "Reservation details",
+        "delete" : "Are you sure you want to delete",
+        "buttonYes" : "Yes",
+        "buttonNo" : "No"
+    },
+    "validation" : {
+        "required" : "Field required!",
+        "onlyLetter" : "Name can only contain letters",
+        "email" : "Email must be a valid email",
+        "min2" : "Minimum length is 2!",
+        "max50" : "Maximum length is 50!",
+        "max15" : "Maximum length is 15!",
+        "passport" : "Passport number must be exactly 12 numbers",
+        "phoneNumbers" : "Phone number can only contain numbers",
+        "phoneMin" : "Phone number must be at least 9 digits",
+        "password" : "Password must be 4-12 characters and can include letters,numbers and ! # % &",
+        "datePast" : "Date cannot be in the past",
+        "lettersNumbers7" : "Input must be 7 characters long and contain only numbers and letters",
+        "year" : "Year can be only from 2005 to current year",
+        "seats" : "Number of seats must be between 2 and 10",
+        "onlyNumbers" : "Input can only contain numbers",
+        "dailyRate" : "Daily rate must be at least 1",
+        "date" : "Invalid date format",
+        "invalidPrice" : "Invalid date format for calculation"
+    },
+    "client" : {
+        "prevRes" : "Previous reservations",
+        "currRes" : "Current reservations",
+        "futureRes" : "Future reservations",
+        "allRes" : "All reservations"
+    },
+    "ant-messages" : {
+        "successDeleted" : "Succesfully deleted!",
+        "error" : "There has been an error!",
+        "successAdd" : "Succesfully added!",
+        "successEdit" : "Sucessfully edited!"
+    }
+}

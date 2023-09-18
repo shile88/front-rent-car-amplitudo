@@ -1,20 +1,11 @@
-@import './assets/styles/globalVariables.scss';
-
-@font-face {
-  font-family: "Gilroy-Regular";
-  src: url("./assets/fonts/Gilroy-Regular.woff");
-}
-
-@font-face {
-  font-family: "Butler-Regular";
-  src: url("./assets/fonts/Butler_Regular.woff");
-}
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Poppins', sans-serif;
 }
+
+
 
 
 

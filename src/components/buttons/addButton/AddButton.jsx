@@ -1,6 +1,8 @@
 import classes from "./AddButton.module.scss"
+import { useTranslation } from "react-i18next";
 
 const AddButton = ({onClick, className = ""}) => {
+    const { t } = useTranslation("global");
     return <button type="button"
                    className={`${classes["button"]} ${className}`}
                     onClick={(e) => {
@@ -8,7 +10,7 @@ const AddButton = ({onClick, className = ""}) => {
                         onClick()
                     }
                     }>
-        Add
+        {t('buttons.addLabel')}
     </button>
 }
 

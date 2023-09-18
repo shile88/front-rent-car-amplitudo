@@ -12,9 +12,3 @@
     @content;
 }
 
-@mixin button($bgColor, $fontSize) {
-    background-color: $bgColor;
-    font-size: $fontSize;
-    
-    @content;
-}

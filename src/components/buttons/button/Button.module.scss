@@ -4,10 +4,15 @@
 .button{
     border-radius: 6px;
     border: 1px solid $text-black;
-    background-color: $text-orange;
+    background-color: white;
     color: $text-black;
-    font-family: "Gilroy-Bold", sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     padding: 4px 8px;
     cursor: pointer;
+    margin-right: 8px;
+
+    &:hover{
+      background-color: $text-orange;
+      color: white;
+    }
   }

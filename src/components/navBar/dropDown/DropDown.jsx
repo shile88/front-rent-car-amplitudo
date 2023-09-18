@@ -2,22 +2,25 @@ import "./DropDown.scss";
 
 import {
   CarOutlined,
-  DownOutlined,
-  LogoutOutlined,
-  SmileOutlined,
+  CarryOutOutlined,
+  MenuOutlined,
+  PoweroffOutlined,
   UserAddOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
+import { useEffect, useState } from "react";
 
 import { Menu } from "antd";
-import { getStatusClassNames } from "antd/es/_util/statusUtils";
 import { storageService } from "../../../services/StorageService";
 import { useNavigate } from "react-router-dom";
-import { useUserData } from "../../../context/UserContex";
+import { useTranslation } from "react-i18next";
+import { useUserData } from "../../../context/UserContext";
 
 function DropDown() {
+  const { t, i18n } = useTranslation("global");
+
+  const [language, setLanguage] = useState(false);
   const navigate = useNavigate();
-  const { refreshUserData } = useUserData();
+  const { refreshUserData, userData } = useUserData();
   const handleMenuClick = (item) => {
     if (item.key === "logout") {
       setTimeout(() => {
@@ -25,47 +28,61 @@ function DropDown() {
         refreshUserData();
         navigate("/login");
       }, 500);
+    } else if (item.key === "language") {
+      setLanguage((prevState) => !prevState);
     } else {
       navigate(`/${item.key}`);
     }
+  };
+
+  useEffect(() => {
+    language ? handleChangeLanguage("mne") : handleChangeLanguage("en");
+  }, [language])
+
+  const handleChangeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
   };
 
   return (
     <Menu
       mode="horizontal"
       onClick={handleMenuClick}
-      subMenuCloseDelay="0.2"
-      className='dropdown'
+      subMenuCloseDelay="0.3"
+      className="dropdown"
       items={[
         {
-          label: <UserOutlined />,
+          label: <MenuOutlined />,
           key: "dropdown",
           children: [
             {
-              label: "Add new customer",
+              label: t("header.dropdown.addCustomer"),
               icon: <UserAddOutlined />,
               key: "users",
+              disabled: userData.role_id === 2 ? true : false,
             },
             {
-              label: "Add new car",
+              label: t("header.dropdown.addVehicle"),
               icon: <CarOutlined />,
               key: "vehicles",
+              disabled: userData.role_id === 2 ? true : false,
             },
             {
-              label: "Add new reservation",
-              icon: <SmileOutlined />,
+              label: t("header.dropdown.addReservation"),
+              icon: <CarryOutOutlined />,
               key: "reservations/add",
+              disabled: userData.role_id === 2 ? true : false,
             },
             {
-              label: "Change language",
-              icon: <DownOutlined />,
-              key: "",
+              label: `${t("header.dropdown.changeLang")}-${
+                language ? "EN" : "MNE"
+              } `,
+              key: "language",
             },
             {
-              label: "Logout",
-              icon: <LogoutOutlined />,
+              label: t("header.dropdown.logout"),
+              icon: <PoweroffOutlined />,
               key: "logout",
-              danger: true
+              danger: true,
             },
           ],
         },

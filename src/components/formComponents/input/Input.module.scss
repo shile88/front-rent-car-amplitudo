@@ -1,0 +1,12 @@
+@import '../../../assets/styles/globalVariables.scss';
+@import '../../../assets/styles/globalMixins.scss';
+
+.error {
+    display: flex;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: red;
+}
+    
+

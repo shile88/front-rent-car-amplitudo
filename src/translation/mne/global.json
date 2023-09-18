@@ -1,0 +1,120 @@
+{
+    "header": {
+      "dropdown": {
+        "addCustomer": "Dodaj novog korisnika",
+        "addVehicle": "Dodaj novo vozilo",
+        "addReservation": "Dodaj novu rezervaciju",
+        "changeLang": "Promeni jezik",
+        "logout": "Odjavi se"
+      }
+    },
+    "sidebar": {
+      "users": "Korisnici",
+      "vehicles": "Vozila",
+      "reservations": "Rezervacije"
+    },
+    "main": {
+      "customersTitle": "Korisnici",
+      "vehiclesTitle": "Vozila",
+      "reservationsTitle": "Rezervacije",
+      "rentVehicle" : "Izaberi vozilo za iznajmiti"
+    },
+    "table": {
+      "firstName": "Ime",
+      "firstNamePlaceholder": "Unesite ime",
+      "lastName": "Prezime",
+      "lastNamePlaceholder": "Unesite prezime",
+      "passportNo": "Broj pasoša",
+      "passportNoPlaceholder": "Unesite broj pasoša",
+      "phoneNo": "Broj telefona",
+      "phoneNoPlaceholder": "Unesite broj telefona",
+      "notes": "Napomene",
+      "notesPlaceholder": "Unesite napomene",
+      "actions": "Akcije",
+      "emailPlaceholder": "Unesite email",
+      "country": "Država",
+      "countryPlaceholder": "Unesite državu",
+      "plateNumber": "Broj tablice",
+      "plateNumberPlaceholder": "Unesite broj tablice",
+      "productionYear": "Godina proizvodnje",
+      "productionYearPlaceholder": "Unesite godinu proizvodnje",
+      "type": "Tip",
+      "typePlaceholder": "Unesite tip vozila",
+      "numberOfSeats": "Broj sedišta",
+      "numberOfSeatsPlaceholder": "Unesite broj sedišta",
+      "dailyRate": "Dnevna cena",
+      "dailyRatePlaceholder": "Unesite dnevnu cenu rente",
+      "dateFrom": "Datum od",
+      "dateTo": "Datum do",
+      "pickupLocation": "Mesto preuzimanja",
+      "pickupLocationPlaceholder": "Unesite mesto preuzimanja",
+      "dropoffLocation": "Mesto vraćanja",
+      "dropoffLocationPlaceholder": "Unesite mesto vraćanja",
+      "totalPrice": "Ukupna cena",
+      "customer": "Korisnik",
+      "customerPlaceholder": "Unesite korisnika",
+      "password" : "Sifra",
+      "passwordPlaceholder" : "Unesite sifru",
+      "createDate" : "Vrijeme rezervacije",
+      "rentDay" : "cijena po danu"
+    },
+    "buttons": {
+      "add": "Dodaj",
+      "edit": "Izmeni",
+      "delete": "Obriši",
+      "submit": "Potvrdi",
+      "addLabel" : "Dodaj"
+    },
+    "search": {
+      "customerSearch": "Unesite ime ili email za pretragu",
+      "vehiclesSearch": "Unesite broj tablice za pretragu",
+      "placeholderStart" : "Od",
+      "placeholderEnd" : "Do"
+    },
+    "modal": {
+      "addCustomerTitle": "Dodaj korisnika",
+      "editCustomerTitle": "Izmeni korisnika",
+      "showCustomerTitle": "Detalji korisnika",
+      "addVehicleTitle": "Dodaj vozilo",
+      "editVehicleTitle": "Izmeni vozilo",
+      "addReservationTitle": "Dodaj rezervaciju",
+      "editReservationTitle": "Izmeni rezervaciju",
+      "showReservationTitle": "Detalji rezervacije",
+      "delete" : "Da li ste sigurni da zelite brisanje",
+      "buttonYes" : "Da",
+      "buttonNo" : "Ne"
+    },
+    "validation": {
+      "required": "Polje je obavezno!",
+      "onlyLetter": "Ime može sadržavati samo slova",
+      "email" : "Email mora biti validan email",
+      "min2": "Minimalna dužina je 2!",
+      "max50": "Maksimalna dužina je 50!",
+      "max15": "Maksimalna dužina je 15!",
+      "passport": "Broj pasoša mora sadržavati tačno 12 brojeva",
+      "phoneNumbers": "Broj telefona može sadržavati samo brojeve",
+      "phoneMin": "Broj telefona mora imati najmanje 9 cifara",
+      "password": "Lozinka mora imati 4-12 karaktera i može sadržavati slova, brojeve i znakove ! # % &",
+      "datePast": "Datum ne može biti u prošlosti",
+      "lettersNumbers7": "Unos mora imati 7 karaktera i sadržavati samo slova i brojeve",
+      "year": "Godina može biti samo od 2005. do trenutne godine",
+      "seats": "Broj sedišta mora biti između 2 i 10",
+      "onlyNumbers": "Unos može sadržavati samo brojeve",
+      "dailyRate": "Dnevna cena mora biti najmanje 1",
+      "date" : "Nepravilan format datuma",
+      "invalidPrice" : "Nepravilan format datuma za kalkulaciju"
+  },
+  "client" : {
+    "prevRes" : "Prethodne rezervacije",
+    "currRes" : "Trenutne rezervacije",
+    "futureRes" : "Buduce rezervacije",
+    "allRes" : "Sve rezervacije"
+  },
+  "ant-messages" : {
+    "successDeleted" : "Uspjesno izbrisano!",
+    "error" : "Doslo je do greske!",
+    "successAdd" : "Uspjesno dodato!",
+    "successEdit" : "Uspjesno izmjenjeno!"
+}
+}
+  

@@ -1,4 +1,23 @@
+@import '../../../assets/styles/globalVariables.scss';
+@import '../../../assets/styles/globalMixins.scss';
+
 .dropdown {
    
-   
+    .ant-menu-overflow-item {
+       
+        background-color: lightgray !important;
+       
+        &:hover {
+            background-color:white !important;
+        }
+    
+        svg {
+            font-size: 15px;
+
+            @include responsive($med) {
+                font-size: 20px;
+            }
+        }
+    }  
 }
+

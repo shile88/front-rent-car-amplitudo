@@ -1,0 +1,26 @@
+@import '../../../assets/styles/globalVariables.scss';
+
+.noaccess-wrapper {
+    text-align: center;
+    padding-top: 100px;
+    background-color: $bg-gray;
+    height: 100vh;
+    
+    h1 {
+        color: $text-orange;
+        font-size: 100px;
+    }
+
+    h2 {
+        font-size: 50px;
+    }
+
+    p {
+        margin-top: 20px;
+        font-size: 20px;
+    }
+
+    span {
+        color: $text-orange;
+    }
+}

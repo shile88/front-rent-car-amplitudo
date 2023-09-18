@@ -1,67 +1,81 @@
 import * as yup from "yup";
 
-import Form from "../../components/form/Form";
+import Form from "../../components/formComponents/form/Form";
+import { useTranslation } from "react-i18next";
 
-const CustomerValidation = ({ onSave, countriesData, singleCustomerData, disabled }) => {
+const CustomerValidation = ({ onSave, countriesData, singleCustomerData, disabled, customerError }) => {
+  const { t } = useTranslation("global");
   const schema = yup.object().shape({
-    firstName: yup
+    first_name: yup
       .string()
       .trim()
-      .matches(/^[A-Za-z]+$/, 'Name can only contain letters')
-      .required("Field required!")
-      .min(2, "Minimum length is 2!")
-      .max(50, "Maximum length is 50!"),
-    lastName: yup
+      .matches(/^[A-Za-z]+$/, t('validation.onlyLetter'))
+      .required(t('validation.required'))
+      .min(2, t('validation.min2'))
+      .max(50, t('validation.max50')),
+    last_name: yup
       .string()
       .trim()
-      .matches(/^[A-Za-z]+$/, 'Name can only contain letters')
-      .required("Field required!")
-      .min(2, "Minimum length is 2!")
-      .max(50, "Maximum length is 50!"),
-    country: yup.number().required("Field required!"),
-    passportNumber: yup
+      .matches(/^[A-Za-z]+$/, t('validation.onlyLetter'))
+      .required(t('validation.required'))
+      .min(2, t('validation.min2'))
+      .max(50, t('validation.max50')),
+    country_id: yup.number().required(t('validation.required')),
+    passport_number: yup
       .string()
-      .required("Field required!")
-      .matches(/^\d{12}$/, 'Passport number must be exactly 12 digits'),
-    phoneNumber: yup
+      .required(t('validation.required'))
+      .matches(/^\d{12}$/, t('validation.passport')),
+    phone_number: yup
       .string()
-      .required("Field required!")
-      .matches(/^\d+$/, 'Phone number can only contain numbers')
-      .min(9, 'Phone number must be at least 9 digits'),
-    email: yup.string().email().required("Field required!"),
-    note: yup.string().max(15, "Maximum length is 15!"),
+      .required(t('validation.required'))
+      .matches(/^\d+$/, t('validation.phoneNumbers'))
+      .min(9, t('validation.phoneMin')),
+    email: yup.string().email(t('validation.email')).required(t('validation.required')),
+    note: yup.string().max(15, t('validation.max15')).nullable(),
   });
 
   const formData = [
     {
-      label: "First Name",
-      name: "firstName",
+      label: t("table.firstName"),
+      name: "first_name",
       type: "text",
+      placeholder: t("table.firstNamePlaceholder")
     },
     {
-      label: "Last Name",
-      name: "lastName",
+      label: t("table.lastName"),
+      name: "last_name",
       type: "text",
+      placeholder: t("table.lastNamePlaceholder")
+    },
+    {
+      label: t("table.country"),
+      name: "country_id",
+      type: "number",
+      placeholder:  t("table.countryPlaceholder")
     },
     {
       label: "Email",
       name: "email",
       type: "text",
+      placeholder: t("table.emailPlaceholder")
     },
     {
-      label: "Passport Number",
-      name: "passportNumber",
+      label: t("table.passportNo"),
+      name: "passport_number",
       type: "text",
+      placeholder: t("table.passportNoPlaceholder")
     },
     {
-      label: "Phone Number",
-      name: "phoneNumber",
+      label: t("table.phoneNo"),
+      name: "phone_number",
       type: "text",
+      placeholder: t("table.phoneNoPlaceholder")
     },
     {
-      label: "Note",
+      label: t("table.notes"),
       name: "note",
       type: "text",
+      placeholder: t("table.notesPlaceholder"),
     },
   ];
 
@@ -74,6 +88,7 @@ const CustomerValidation = ({ onSave, countriesData, singleCustomerData, disable
         schema={schema}
         singleCustomerData={singleCustomerData}
         disabled={disabled}
+        customerError={customerError}
       />
     </div>
   );

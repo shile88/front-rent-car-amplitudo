@@ -4,9 +4,13 @@ import CustomerValidation from "../../../validation/customerValidation/CustomerV
 import { countryService } from "../../../services/CountryService";
 import { customerService } from "../../../services/CustomerService";
 import { message } from "antd";
+import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const AddCustomer = ({ id, close, disabled }) => {
   const queryClient = useQueryClient();
+  const [customerError, setCustomerError] = useState({})
+  const { t } = useTranslation("global");
 
   const { data: countriesData } = useQuery(
     ["countries"],
@@ -21,13 +25,19 @@ const AddCustomer = ({ id, close, disabled }) => {
     customerService
       .add(data)
       .then((r) => {
-        message.success("Succesfully added!");
+        message.success(t('ant-messages.successAdd'));
         queryClient.invalidateQueries("customers");
         close();
       })
       .catch((err) => {
-        console.log(err?.response?.data);
-        message.error("There has been an error!");
+        const errorObject = err?.response.data.errors
+        const transformedErrors = Object.keys(errorObject).reduce((acc, field) => {
+          acc[field] = errorObject[field][0];
+          return acc;
+        }, {});
+        setCustomerError(transformedErrors)
+        console.log(errorObject)
+        message.error(t('ant-messages.error'));
       })
   );
 
@@ -39,7 +49,7 @@ const AddCustomer = ({ id, close, disabled }) => {
         return res;
       })
       .catch((err) => {
-        message.error("There has been an error!");
+        message.error(t('ant-messages.error'));
       });
   };
 
@@ -55,38 +65,29 @@ const AddCustomer = ({ id, close, disabled }) => {
     customerService
       .edit(data)
       .then((r) => {
-        message.success("Sucessfully edited!");
+        message.success(t('ant-messages.successEdit'));
         queryClient.invalidateQueries("customers");
         close();
       })
       .catch((err) => {
         console.log(err?.response?.data);
-        message.error("There has been an error!");
+        message.error(t('ant-messages.error'));
       })
   );
 
   const onSave = (formData) => {
-    const saveObject = {
-      country_id: formData.country,
-      first_name: formData.firstName,
-      last_name: formData.lastName,
-      passport_number: formData.passportNumber,
-      phone_number: formData.phoneNumber,
-      email: formData.email,
-      note: formData.note,
-    };
     const editObject = {
       country_id: formData.country,
-      first_name: formData.firstName,
-      last_name: formData.lastName,
-      email: formData.email,
+      first_name: formData.first_name,
+      last_name: formData.last_name,
+      phone_number: formData.phone_number,
       note: formData.note,
       id: id 
     }
     if (id) {
       edit.mutate(editObject);
     } else {
-      add.mutate(saveObject);
+      add.mutate(formData);
     }
   };
 
@@ -96,6 +97,7 @@ const AddCustomer = ({ id, close, disabled }) => {
       onSave={onSave}
       countriesData={countriesData}
       disabled={disabled}
+      customerError={customerError}
     />
   );
 };

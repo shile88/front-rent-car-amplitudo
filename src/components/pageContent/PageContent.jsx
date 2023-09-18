@@ -1,5 +1,4 @@
 import AddButton from "../buttons/addButton/AddButton";
-import AppRoutes from "../appRoutes";
 import SearchField from "../search/Search";
 import Table from "../table/Table";
 import classes from "./PageContent.module.scss";
@@ -11,14 +10,15 @@ const PageContent = ({
   header,
   onClick,
   data,
-  onRow
+  onRow,
+  dateSearch
 }) => {
   return (
     <div className={classes["page-content-wrapper"]}>
       {title && <h1>{title}</h1>}
       {placeholder && (
         <div className={classes.search}>
-          <SearchField placeholder={placeholder} onChange={onChange} />
+          <SearchField placeholder={placeholder} onChange={onChange} dateSearch={dateSearch} />
         </div>
       )}
 

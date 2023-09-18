@@ -1,18 +1,29 @@
+import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-import AddVehicle from "./addVehicle/AddVehicle";
+import AddVehicle from "./addEditVehicle/AddEditVehicle";
 import Button from "../../components/buttons/button/Button";
 import PageContent from "../../components/pageContent/PageContent";
 import { message } from "antd";
-import { useModal } from "../../context/ModalContex";
-import { useState } from "react";
+import { useModal } from "../../context/ModalContext";
+import { useTranslation } from "react-i18next";
 import { vehicleService } from "../../services/VehicleService";
 
 const Vehicles = () => {
+  const { t } = useTranslation("global");
   const queryClient = useQueryClient();
   const { open, close } = useModal();
   const [query, setQuery] = useState("");
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get("search");
   
+ 
+
+  useEffect(() => {
+    setQuery(search)
+  }, [search])
 
   const { data } = useQuery(
     ["vehicles", query],
@@ -22,18 +33,18 @@ const Vehicles = () => {
       initialData: [],
     }
   );
-  
+
   const deleteVehicle = useMutation((data) =>
-  vehicleService
+    vehicleService
       .delete(data)
       .then((r) => {
-        message.success("Succesfully deleted!");
+        message.success(t('ant-messages.successDeleted'));
         queryClient.invalidateQueries("vehicles");
         close();
       })
       .catch((err) => {
         console.log(err?.response?.data);
-        message.error("There has been an error!");
+        message.error(t('ant-messages.error'));
       })
   );
 
@@ -43,37 +54,37 @@ const Vehicles = () => {
 
   const header = [
     {
-      title: "Plate Number",
-      index: "plateNumber",
+      title: t("table.plateNumber"),
+      index: "plate_number",
     },
     {
-      title: "Production Year",
-      index: "productionYear",
+      title: t("table.productionYear"),
+      index: "production_year",
     },
     {
-      title: "Type",
+      title: t("table.type"),
       index: "type",
     },
     {
-      title: "Number of seats",
-      index: "numberOfSeats",
+      title: t('table.numberOfSeats'),
+      index: "number_of_seats",
     },
     {
-      title: "Daily rate",
-      index: "dailyRate",
+      title: t('table.dailyRate'),
+      index: "daily_rate",
     },
     {
-      title: "Notes",
+      title:  t("table.notes"),
       index: "note",
     },
     {
-      title: "Actions",
+      title: t("table.actions"),
       index: null,
       render: (data) => {
         return (
-          <div >
-            <Button label={"Edit"} onClick={() => openForm(data?.id)} />
-            <Button label={"Delete"} onClick={() => onDelete(data?.id)} />
+          <div>
+            <Button label={t('buttons.edit')} onClick={() => openForm(data?.id)} />
+            <Button label={t('buttons.delete')} onClick={() => openForm(data?.id, true)} />
           </div>
         );
       },
@@ -84,23 +95,29 @@ const Vehicles = () => {
     close();
   };
 
-  const openForm = (id) => {
-    open(
-      id ? 'Edit vehicle' : 'Add vehicle',
-      <AddVehicle key={`vehicle-${id}`} id={id} close={closeForm} />
-    );
+  const openForm = (id, openDeleteModal) => {
+    openDeleteModal
+      ? open(
+        t('modal.delete'),
+          <div>
+            <button onClick={() => onDelete(id)}>{t('modal.buttonYes')}</button>
+            <button onClick={() => closeForm()}>{t('modal.buttonNo')}</button>
+          </div>
+        )
+      : open(
+          id ? t('modal.editVehicleTitle') : t('modal.addVehicleTitle'),
+          <AddVehicle key={`vehicle-${id}`} id={id} close={closeForm} />
+        );
   };
 
   return (
     <PageContent
-      title="Vehicles"
-      placeholder="Insert plate number for search"
-      onChange={(e) => {
-        setQuery(e.target.value);
-      }}
+      title={t('main.vehiclesTitle')}
+      placeholder={t('search.vehiclesSearch')}
+      onChange={(e)=>navigate(`/vehicles?search=${e.target.value}`)}
       onClick={() => openForm(null)}
       header={header}
-      data={data.filter((item) => item.plateNumber.toLowerCase().includes(query.toLowerCase()))}
+      data={data}
     />
   );
 };

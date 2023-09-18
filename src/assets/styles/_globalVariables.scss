@@ -1,22 +1,14 @@
 // background colors
-$bg-gray: #f8f8f8;
+$bg-gray: rgba(0, 0, 0, 0.05);
 $bg-white: #ffffff;
+$bg-orange: #ff4d30;
 
 // text color
 $text-black: #010103;
 $text-orange: #ff4d30;
-$btn-black: #161616;
-$text-gray: #706f7b;
-$color: rgba(255, 80, 80, 1);
+$text-gray: rgba(0, 0, 0, 0.05);
 $colorSecondary: #ff6100;
 
-// sizes
-$h1-size: 5.2rem;
-$h2-size: 4.2rem;
-$h3-size: 2.4rem;
-$h4-size: 2.2rem;
-$p-size: 1.6rem;
-$input-size: 1.4rem;
 
 //Breakpoints
 $xl: 87.5em; // 4k and hi-res desktop

@@ -17,8 +17,9 @@ class ReservationService {
     //optional - send query for search
     getAll(query){
         // if search query is passed to method, add it to api
-        const queryFirstParam = query?.length > 0 ? `?${this.params.dateFrom}${query.dateFrom}` : '';
-        const querySecondParam = query?.length > 0 ? `?${this.params.dateTo}${query.dateTo}` : '';
+        const queryFirstParam = Object.keys(query).length > 0 ? `?${this.params.dateFrom}${query.dateFrom}` : '';
+        const querySecondParam = Object.keys(query).length > 0 ? `&${this.params.dateTo}${query.dateTo}` : '';
+        
         return requestInstance.get(`${this.api.main}${queryFirstParam}${querySecondParam}`)
             .then(r => r?.data.data.map(item => new ReservationModel(item)))
             .catch(err => Promise.reject(err))
@@ -41,7 +42,7 @@ class ReservationService {
     edit(data){
         const formData = {...data};
         return requestInstance.put(`${this.api.main}/${data?.id}`, formData)
-            .then(r => new ReservationModel(r.data))
+            .then(r => new ReservationModel(r.data.data))
             .catch(err => Promise.reject(err))
     }
 

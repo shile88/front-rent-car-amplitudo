@@ -1,38 +1,38 @@
-import { CarOutlined, UserAddOutlined, UserOutlined } from "@ant-design/icons";
+import "./Sidebar.scss";
+
+import { CarOutlined, CarryOutOutlined, UserOutlined } from "@ant-design/icons";
 
 import { Menu } from "antd";
-import classes from "./Sidebar.module.scss";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Sidebar = () => {
+  const { t } = useTranslation("global");
   const navigate = useNavigate();
   return (
-    <div className={classes["side-menu-wrapper"]}>
       <Menu
-        mode="vertical"
-        className={classes['side-menu']}
+        className="sidebar-menu"
         onClick={(item) => {
           navigate(item.key);
         }}
         items={[
           {
-            label: "Users",
+            label: t('sidebar.users'),
             key: "/users",
             icon: <UserOutlined />,
           },
           {
-            label: "Vehicles",
+            label: t('sidebar.vehicles'),
             key: "/vehicles",
             icon: <CarOutlined />,
           },
           {
-            label: "Reservations",
+            label: t('sidebar.reservations'),
             key: "/reservations",
-            icon: <UserAddOutlined />,
+            icon: <CarryOutOutlined />,
           },
         ]}
       ></Menu>
-    </div>
   );
 };
 

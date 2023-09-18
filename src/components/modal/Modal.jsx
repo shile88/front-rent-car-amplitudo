@@ -12,7 +12,10 @@ const Modal = ({
                       className={"__modal-container"}
                       open={open}
                       footer={null}
-                      onCancel={close}>
+                      onCancel={close}
+                      maskClosable={false}
+                      >
+                        
                         
         {content}
     </AntdModal>

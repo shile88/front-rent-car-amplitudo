@@ -1,0 +1,50 @@
+@import '../../assets/styles/globalMixins';
+@import '../../assets/styles/globalVariables';
+
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: row;
+
+    @include responsive($med) {
+        display: flex;
+        flex-direction: column;
+    }
+    .ant-menu-item {
+      
+        @include responsive($med) {
+            margin-top: 15px !important;
+        }
+    
+        .ant-menu-title-content {
+            font-size: 17px;  
+            @include responsive($med) {
+                font-size: 23px;  
+            }     
+        }
+       
+        &:hover {
+            background-color: rgba(0, 0, 0, 0.2) !important;
+        }
+
+        &:focus {
+            color: black !important;
+        }
+
+        svg{
+            font-size: 15px;
+
+            @include responsive($med) {
+                font-size: 20px;
+            }   
+        }
+    } 
+}
+
+.ant-menu {
+    background-color:$bg-orange;
+}
+
+
+
+

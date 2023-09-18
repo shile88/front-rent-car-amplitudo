@@ -3,21 +3,21 @@ import { Image, Space, Typography } from "antd";
 import DropDown from "./dropDown/DropDown";
 import Logo from "../../assets/images/logo.png";
 import classes from "./NavBar.module.scss";
-import { useUserData } from "../../context/UserContex";
+import { useUserData } from "../../context/UserContext";
 
-function NavBar() {
+function NavBar({t, handleChangeLanguage}) {
   const { userData } = useUserData();
 
   return (
     <header className={classes.header}>
       <Image width={150} src={Logo} preview={false}/>
-
-      <Space className={classes.name}>
-        <Typography.Title className={classes.title}>
-          {userData?.firstName} {userData?.lastName}
+      
+      <Space>
+        <Typography.Title className={classes['header-name']}>
+          {userData?.first_name} {userData?.last_name}
         </Typography.Title>
 
-        <DropDown />
+        <DropDown t={t} handleChangeLanguage={handleChangeLanguage}/>
       </Space>
     </header>
   );

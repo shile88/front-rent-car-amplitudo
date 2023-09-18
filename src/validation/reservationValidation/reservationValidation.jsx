@@ -1,41 +1,73 @@
 import * as yup from "yup";
 
-import Form from "../../components/form/Form";
+import Form from "../../components/formComponents/form/Form";
 import { startOfDay } from "date-fns";
+import { useTranslation } from "react-i18next";
 
-const ReservationValidation = ({ onSave, customersData, citiesData, carData }) => {
+const ReservationValidation = ({
+  onSave,
+  customersData,
+  citiesData,
+  singleReservationData,
+  disabled,
+  carReservationData,
+}) => {
+  const { t } = useTranslation("global");
   const schema = yup.object().shape({
-    customer: yup.number().required("Field required!"),
-    dateFrom: yup
+    customer_id: yup.number().required(t("validation.required")),
+    date_from: yup
       .date()
-      .required("Field required!")
-      .min(startOfDay(new Date()), "Date cannot be in the past"),
-    dateTo: yup
+      .typeError(t("validation.date"))
+      .required(t("validation.required"))
+      .min(startOfDay(new Date()), t("validation.datePast")),
+    date_to: yup
       .date()
-      .required("Field required!")
-     .min(startOfDay(new Date()), "Date cannot be in the past"),
-    locationPickup: yup.number().required("Field required!"),
-    locationDropoff: yup.number().required("Field required!"),
-    priceTotal: yup.number().required("Field required!"),
+      .typeError(t("validation.date"))
+      .required(t("validation.required"))
+      .min(startOfDay(new Date()), t("validation.datePast")),
+    pickup_location: yup.number().required(t("validation.required")),
+    drop_off_location: yup.number().required(t("validation.required")),
+    price: yup
+      .number()
+      .required(t("validation.required"))
+      .typeError(t("validation.invalidPrice")),
   });
 
   const formData = [
     {
-      label: "Date From",
-      name: "dateFrom",
-      type: "date",
-    },
-    {
-      label: "Date to",
-      name: "dateTo",
-      type: "date",
-    },
-    {
-      label: "Total price",
-      name: "priceTotal",
+      label: t("table.customer"),
+      name: "customer_id",
       type: "number",
+      placeholder: t("table.customerPlaceholder"),
     },
-  ]; 
+    {
+      label: t("table.dateFrom"),
+      name: "date_from",
+      type: "date",
+    },
+    {
+      label: t("table.dateTo"),
+      name: "date_to",
+      type: "date",
+    },
+    {
+      label: t("table.pickupLocation"),
+      name: "pickup_location",
+      type: "number",
+      placeholder: t("table.pickupLocationPlaceholder"),
+    },
+    {
+      label: t("table.dropoffLocation"),
+      name: "drop_off_location",
+      type: "number",
+      placeholder: t("table.dropoffLocationPlaceholder"),
+    },
+    {
+      label: t("table.totalPrice"),
+      name: "price",
+      type: "text",
+    },
+  ];
 
   return (
     <div>
@@ -45,7 +77,9 @@ const ReservationValidation = ({ onSave, customersData, citiesData, carData }) =
         schema={schema}
         customersData={customersData}
         citiesData={citiesData}
-        carData={carData}
+        singleReservationData={singleReservationData}
+        disabled={disabled}
+        carReservationData={carReservationData}
       />
     </div>
   );

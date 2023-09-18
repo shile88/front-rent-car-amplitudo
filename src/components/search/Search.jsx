@@ -1,29 +1,47 @@
 import "./Search.scss";
 
-import {useEffect, useState} from "react";
+import { DatePicker, Input, Space } from "antd";
+import { useEffect, useState } from "react";
 
-import { Input } from 'antd';
 import useDebounce from "../../hooks/useDebounce";
+import { useTranslation } from "react-i18next";
 
 const { Search } = Input;
+const { RangePicker } = DatePicker;
 
-const SearchField = ({placeholder, onChange, className = ''}) => {
-    const [query, setQuery] = useState('');
-    const debouncedQuery = useDebounce(query, 300)
+const SearchField = ({ placeholder, onChange, className = "", dateSearch }) => {
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 300);
+  const { t } = useTranslation("global");
 
-    useEffect(() => {
-        setQuery(debouncedQuery)
-    }, [debouncedQuery])
+  useEffect(() => {
+    setQuery(debouncedQuery);
+  }, [debouncedQuery]);
 
-    return <div className={className}>
-        <Search
-            placeholder={placeholder}
-            size="large"
+  return (
+    <div className={className}>
+      {dateSearch ? (
+        <Space direction="vertical" size={12}>
+          <RangePicker
             allowClear
-            onChange={onChange}
-            className="__search-field"
+            onChange={dateSearch}
+            placeholder={[
+              t("search.placeholderStart"),
+              t("search.placeholderEnd"),
+            ]}
+          />
+        </Space>
+      ) : (
+        <Search
+          placeholder={placeholder}
+          size="large"
+          allowClear
+          onChange={onChange}
+          className="__search-field"
         />
+      )}
     </div>
-}
+  );
+};
 
 export default SearchField;

@@ -1,0 +1,41 @@
+@import '../../assets/styles/globalMixins';
+@import '../../assets/styles/globalVariables.scss';
+
+.client-wrapper {
+    margin: 30px auto;
+    padding: 0 10px;
+
+    @include responsive($med) {
+        padding: 0 50px;
+    }
+}
+
+.reservations {
+    display: grid;
+    grid-template-columns:  repeat(1, 1fr);
+    gap: 15px;
+
+    @include responsive($med) {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    @include responsive($lg) {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    @include responsive($xl) {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+    }
+}
+
+.filter-buttons {
+   display: flex;
+   justify-content: flex-start;
+   margin-bottom: 20px;
+}

@@ -1,23 +1,27 @@
+import { useEffect, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
-import AddButton from "../../components/buttons/addButton/AddButton";
 import Button from "../../components/buttons/button/Button";
 import PageContent from "../../components/pageContent/PageContent";
 import ReservationForm from "./reservationForm/ReservationForm";
-import SearchField from "../../components/search/Search";
-import Table from "../../components/table/Table";
 import classes from "./Reservations.module.scss";
 import { message } from "antd";
 import { reservationService } from "../../services/ReservationService";
-import { useModal } from "../../context/ModalContex";
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useModal } from "../../context/ModalContext";
+import { useTranslation } from "react-i18next";
 
 const Reservations = () => {
   const queryClient = useQueryClient();
   const { open, close } = useModal();
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState([]);
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [datePicker, setDatePicker] = useState([]);
+  const { t } = useTranslation("global");
+
+  const dateFromParams = searchParams.get("dateFrom");
+  const dateToParams = searchParams.get("dateTo");
 
   const { data } = useQuery(
     ["reservations", query],
@@ -27,19 +31,24 @@ const Reservations = () => {
       initialData: [],
     }
   );
+  
+  useEffect(() => {
+   if(dateFromParams !== null || dateToParams !== null)
+    setQuery({ dateFrom: dateFromParams, dateTo: dateToParams });
+ 
+  }, [dateFromParams, dateToParams]);
 
   const deleteReservation = useMutation((data) =>
-  reservationService
+    reservationService
       .delete(data)
       .then((r) => {
-        message.success("Succesfully deleted!");
+        message.success(t('ant-messages.successDeleted'));
         queryClient.invalidateQueries("reservations");
-        queryClient.invalidateQueries("reservation-single");
         close();
       })
       .catch((err) => {
         console.log(err);
-        message.error("There has been an error!");
+        message.error(t('ant-messages.error'));
       })
   );
 
@@ -49,45 +58,48 @@ const Reservations = () => {
 
   const header = [
     {
-      title: "First Name",
-      index: "firstName",
+      title: t("table.firstName"),
+      index: "first_name",
     },
     {
-      title: "Last Name",
-      index: "lastName",
+      title: t("table.lastName"),
+      index: "last_lame",
     },
     {
-      title: "Plate number",
-      index: "plateNumber",
+      title: t("table.plateNumber"),
+      index: "plate_number",
     },
     {
-      title: "Date from",
-      index: "dateFrom",
+      title:t('table.dateFrom'),
+      index: "date_from",
     },
     {
-      title: "Date to",
-      index: "dateTo",
+      title: t('table.dateTo'),
+      index: "date_to",
     },
     {
-      title: "Pickup location",
-      index: "locationPickup",
+      title: t('table.pickupLocation'),
+      index: "pickup_location",
     },
     {
-      title: "Dropoff location",
-      index: "locationDropoff",
+      title: t("table.dropoffLocation"),
+      index: "drop_off_location",
     },
     {
-      title: "Total price",
-      index: "priceTotal",
+      title: t('table.totalPrice'),
+      index: "price",
     },
     {
-      title: "Actions",
+      title:t("table.actions"),
       index: null,
       render: (data) => {
         return (
           <div className={classes["action-buttons"]}>
-            <Button label={"Edit"} onClick={() => openForm(data?.id, false)} />
-            <Button label={"Delete"} onClick={() => onDelete(data?.id)} />
+            <Button label={t('buttons.edit')} onClick={() => openForm(data?.id, false)} />
+            <Button
+              label={t('buttons.delete')}
+              onClick={() => openForm(data?.id, false, true)}
+            />
           </div>
         );
       },
@@ -98,28 +110,47 @@ const Reservations = () => {
     close();
   };
 
-  const openForm = (id, disabled) => {
-    open(
-      disabled ? 'Reservations details' : 'Edit reservation',
-      <ReservationForm key={`reservation-${id}`} id={id} close={closeForm} disabled={disabled}/>
-    );
+  const openForm = (id, disabled, openDeleteModal) => {
+    openDeleteModal
+      ? open(
+        t('modal.delete'),
+          <div>
+            <button onClick={() => onDelete(id)}>{t('modal.buttonYes')}</button>
+            <button onClick={() => closeForm()}>{t('modal.buttonNo')}</button>
+          </div>
+        )
+      : open(
+          disabled ? t('modal.showReservationTitle') : t('modal.editReservationTitle'),
+          <ReservationForm
+            key={`reservation-${id}`}
+            id={id}
+            close={closeForm}
+            disabled={disabled}
+          />
+        );
+  };
+
+  const dateSearch = (dates, dateStrings) => { 
+    const dateFrom = dateStrings[0];
+    const dateTo = dateStrings[1];
+
+    setDatePicker(dateStrings);
+    navigate(`/reservations?dateFrom=${dateFrom}&dateTo=${dateTo}`);
   };
 
   return (
     <PageContent
-      title="Reservations"
+      title={t('main.reservationsTitle')}
       placeholder="Insert first name or email for search"
-      onChange={(e) => {
-        setQuery(e.target.value);
-      }}
       onClick={() => navigate("/reservations/add")}
+      dateSearch={dateSearch}
       header={header}
       data={data}
       onRow={(record) => {
         return {
-          onClick: (e) => {           
+          onClick: (e) => {
             if (e.target.cellIndex !== undefined) openForm(record?.id, true);
-          },        
+          },
         };
       }}
     />

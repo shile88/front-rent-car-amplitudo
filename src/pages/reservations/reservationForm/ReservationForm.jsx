@@ -1,15 +1,17 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
-import EditReservationValidation from "../../../validation/reservationValidation/editReservationValidation";
 import ReservationValidation from "../../../validation/reservationValidation/reservationValidation";
 import { cityService } from "../../../services/CityService";
 import { customerService } from "../../../services/CustomerService";
 import { format } from "date-fns";
 import { message } from "antd";
 import { reservationService } from "../../../services/ReservationService";
+import { useTranslation } from "react-i18next";
 
-const ReservationForm = ({ carData, id, close, disabled }) => {
+const ReservationForm = ({ carReservationData, id, close, disabled }) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation("global");
+
   const { data: customersData } = useQuery(
     ["customers-data"],
     () => customerService.getAll(),
@@ -32,13 +34,13 @@ const ReservationForm = ({ carData, id, close, disabled }) => {
     reservationService
       .add(data)
       .then((r) => {
-        message.success("Succesfully added!");
-        queryClient.invalidateQueries("vehicles");
+        message.success(t('ant-messages.successAdd'));
+        queryClient.invalidateQueries("reservations");
         close();
       })
       .catch((err) => {
         console.log(err);
-        message.error("There has been an error!");
+        message.error(t('ant-messages.error'));
       })
   );
 
@@ -46,13 +48,13 @@ const ReservationForm = ({ carData, id, close, disabled }) => {
     reservationService
       .edit(data)
       .then((r) => {
-        message.success("Sucessfully edited!");
-        queryClient.invalidateQueries("customers");
+        message.success(t('ant-messages.successEdit'));
+        queryClient.invalidateQueries("reservations");
         close();
       })
       .catch((err) => {
-        console.log(err?.response?.data);
-        message.error("There has been an error!");
+        console.log(err);
+        message.error(t('ant-messages.error'));
       })
   );
 
@@ -60,27 +62,9 @@ const ReservationForm = ({ carData, id, close, disabled }) => {
     return reservationService
       .get(id)
       .then((res) => {
-        console.log(res)
         return res;
       })
-      .catch((err) => message.error("There has been an error!"));
-  };
-
- const onSave = (formData) => {
-    const saveObject = {
-      date_from: format(formData.dateFrom, "yyyy-MM-dd"),
-      date_to: format(formData.dateTo, "yyyy-MM-dd"),
-      customer_id: formData.customer,
-      pickup_location: formData.locationPickup,
-      drop_off_location: formData.locationDropoff,
-      vehicle_id: carData.id,
-      price: formData.priceTotal,
-    };
-    if (id) {
-      edit.mutate(formData);
-    } else {
-      add.mutate(saveObject);
-    }
+      .catch((err) => message.error(t('ant-messages.error')));
   };
 
   const { data: singleReservationData } = useQuery(
@@ -91,26 +75,33 @@ const ReservationForm = ({ carData, id, close, disabled }) => {
     }
   );
 
-  console.log(carData )
+  const onSave = (formData) => {
+   const saveObject = {
+      date_from: format(formData.date_from, "yyyy-MM-dd"),
+      date_to: format(formData.date_to, "yyyy-MM-dd"),
+      customer_id: formData.customer_id,
+      pickup_location: formData.pickup_location,
+      drop_off_location: formData.drop_off_location,
+      vehicle_id: carReservationData ? carReservationData.id : singleReservationData.vehicleId,
+      price: formData.price,
+      id: id ? id : null
+    };
+    if (id) {
+      edit.mutate(saveObject);
+    } else {
+      add.mutate(saveObject);
+    }
+  };
 
   return (
-    <>
-      {singleReservationData ? (
-        <EditReservationValidation
-          onSave={onSave}
-          singleReservationData={singleReservationData}
-          citiesData={citiesData}
-          disabled={disabled}
-        />
-      ) : (
-        <ReservationValidation
-          carData={carData}
-          onSave={onSave}
-          citiesData={citiesData}
-          customersData={customersData}
-        />
-      )}
-    </>
+    <ReservationValidation
+      singleReservationData={singleReservationData}
+      onSave={onSave}
+      citiesData={citiesData}
+      customersData={customersData}
+      disabled={disabled}
+      carReservationData={carReservationData}
+    />
   );
 };
 

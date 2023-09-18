@@ -1,15 +1,17 @@
 class CustomerModel {
     constructor(responseData) {
         this.id = responseData?.id;
-        this.firstName = responseData?.first_name;
-        this.lastName = responseData?.last_name;
+        this.first_name = responseData?.first_name;
+        this.last_name = responseData?.last_name;
         this.email = responseData?.email;
-        this.passportNumber = responseData?.passport_number;
-        this.phoneNumber = responseData?.phone_number;
+        this.passport_number = responseData?.passport_number;
+        this.phone_number = responseData?.phone_number;
         this.note = responseData?.note;
         this.key = responseData?.id;
-        this.country = responseData?.country_id ? responseData?.country_id : {id: responseData?.country?.id, name: responseData?.country?.name}
-        this.role = responseData?.role_id ? responseData?.role_id : {id: responseData?.role?.id, name: responseData?.role?.name}
+        this.country_id = responseData?.country_id 
+        this.country_name = responseData?.country_name
+        this.role_id = responseData?.role_id 
+        this.role_name = responseData?.role_name
     }
 }
 

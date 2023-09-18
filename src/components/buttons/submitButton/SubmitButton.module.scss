@@ -11,15 +11,20 @@
   line-height: 36px;
   font-weight: 500;
   margin: 25px 0 10px;
-  color: #fff;
-  background: linear-gradient($colorSecondary, $color);
-  box-shadow: 0 2px 12px -3px $color;
-  
+  color: #fff !important;
+  background: $bg-orange;
   opacity: 0.9;
  
   &:hover {
-    opacity: 1;
-    box-shadow: 0 2px 2px -3px $color;
-  }
-    
-  }
+    opacity: 1.2;
+    box-shadow: 0 2px 2px -3px $bg-gray;
+    scale: 1.1;
+    background-color: green;
+    cursor: pointer;
+  }   
+}
+
+.logging {
+  background: green;
+}
+

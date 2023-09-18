@@ -1,17 +1,16 @@
 import PageContent from "../../../components/pageContent/PageContent";
 import ReservationForm from "../reservationForm/ReservationForm";
-import { useModal } from "../../../context/ModalContex";
+import { useModal } from "../../../context/ModalContext";
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { vehicleService } from "../../../services/VehicleService";
 
 const AddReservation = () => {
-  const [query, setQuery] = useState("");
   const { open, close } = useModal();
-
+  const { t } = useTranslation("global");
   const { data } = useQuery(
-    ["vehicles", query],
-    () => vehicleService.getAll(query),
+    ["vehicles"],
+    () => vehicleService.getAll(),
     {
       enabled: true,
       initialData: [],
@@ -20,20 +19,20 @@ const AddReservation = () => {
 
   const header = [
     {
-      title: "Plate Number",
-      index: "plateNumber",
+      title: t("table.plateNumber"),
+      index: "plate_number",
     },
     {
-      title: "Production Year",
-      index: "productionYear",
+      title:  t("table.productionYear"),
+      index: "production_year",
     },
     {
-      title: "Number of seats",
-      index: "numberOfSeats",
+      title: t('table.numberOfSeats'),
+      index: "number_of_seats",
     },
     {
-      title: "Daily rate",
-      index: "dailyRate",
+      title:  t('table.dailyRate'),
+      index: "daily_rate",
     },
   ];
 
@@ -43,21 +42,20 @@ const AddReservation = () => {
 
   const openForm = (record, disabled) => {
     open(
-      "Reservation Info",
-      <ReservationForm carData={record} close={closeForm} disabled={disabled}/>
+      t('modal.addReservationTitle'),
+      <ReservationForm carReservationData={record} close={closeForm} disabled={disabled}/>
     );
   };
 
   return (
-    
     <PageContent
-      title="Click on vehicle to rent"
+      title={t('main.rentVehicle')}
       header={header}
       data={data}
       onRow={(record) => {
         return {
           onClick: () => {
-            openForm(record, true);
+            openForm(record, false);
           },
         };
       }}
