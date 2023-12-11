@@ -32,7 +32,7 @@
         "notes" : "Notes",
         "notesPlaceholder" : "Input notes",
         "actions" : "Actions",
-        "emailPlaceholder" : "Input email",
+        "emailPlaceholder" : "Admin:user1@email.com, User:customer2@email.com",
         "country" : "Country",
         "countryPlaceholder" : "Input country",
         "plateNumber" : "Plate number",
@@ -55,7 +55,7 @@
         "customer" : "Customer",
         "customerPlaceholder" : "Input customer",
         "password" : "Password",
-        "passwordPlaceholder" : "Input password",
+        "passwordPlaceholder" : "Password: 12345678",
         "createDate" : "Reserved at",
         "rentDay" : "rent per day"
     },

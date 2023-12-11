@@ -4,7 +4,6 @@
 .app-wrapper {
     height: 100vh;
     display: grid;
-    background-color:$text-gray;
     grid-template-columns: 1fr;
     grid-template-rows: 120px 80px 1fr 35px;
 
@@ -25,23 +24,21 @@
 }
 
 .side {
-    background-color:white;
     grid-column: 1/1;
     grid-row: 2/4;
-    padding-top: 10px;
     
     @include responsive($med) {
-        background-color:$bg-orange;
         grid-column: 1/2;
         grid-row: 2/3;      
-        padding-top: 50px;
     }  
 }
 
 .main-content {
-    margin: 5px auto;
+    margin: 0 auto;
     grid-column: 1/1;
     grid-row: 3/4;
+    width: 100%;
+    
     @include responsive($med) {
         grid-column: 2/3;
         grid-row: 2/3;
@@ -50,7 +47,7 @@
 
 .footer {
     border-top: 1px solid $bg-gray;
-    background-color: white;
+    background-color: $text-gray;
     grid-column: 1/1;
     grid-row: 4/4;
     

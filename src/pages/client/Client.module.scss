@@ -4,7 +4,7 @@
 .client-wrapper {
     margin: 30px auto;
     padding: 0 10px;
-
+   
     @include responsive($med) {
         padding: 0 50px;
     }

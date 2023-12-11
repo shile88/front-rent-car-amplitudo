@@ -4,59 +4,45 @@
 .container { 
     background-color: $bg-gray;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    padding-top: 50px;
+
+    @include responsive($med) { 
+      display: flex;
+      flex-direction: row;
+      padding-top: 0px;
+    }
   }
 
-  .login-form {
-    .login-text {
-      margin-top: -150px;
+.login-form {
+  @include responsive($med) { 
+    width: 60%;
+  }
+ 
+  .login-text {   
       color: $text-orange;
       text-align: center;
-      font-size: 20px;
+      font-size: 17px;
+
+      @include responsive($med) { 
+        font-size: 20px; 
+      }
      
       h1 {
         margin-bottom: 25px;
       }
-    }
-
-    
   }
+}
 
-  .car-img {
-    width: 100%;
-    }
-
-  /*.bg-shape {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1;
-   
+.car-wrapper {
+  @include responsive($med) { 
+    width: 40%;
   }
-  
-  .hero-content {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    margin: auto;
-  
-    @media (max-width: 800px) {
-      justify-content: center;
-    }
-  
-    .car-img {
-      z-index: 2;
-      position: absolute;
-      right: 20rem;
-      width: 50%;
-      margin-top: 5rem;
-  
-      @media (max-width: 800px) {
-        display: none;
-      }
-    }
-  }*/
+}
+
+.car-img {
+  width: 100%;
+}

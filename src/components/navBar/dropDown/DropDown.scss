@@ -2,10 +2,8 @@
 @import '../../../assets/styles/globalMixins.scss';
 
 .dropdown {
-   
     .ant-menu-overflow-item {
-       
-        background-color: lightgray !important;
+        background: white !important;
        
         &:hover {
             background-color:white !important;

@@ -2,6 +2,15 @@
 @import '../../assets/styles/globalMixins';
 
 .page-content-wrapper {
+   padding: 0px;
+   background-color:white;
+   height: 100%;
+   padding: 10px 10px 0 10px;
+
+   @include responsive($med) {
+      padding: 25px 25px 0 25px;
+   }
+
    h1 {
       font-size: 40px;
       color: $text-orange;
@@ -14,15 +23,16 @@
 }
 
 .add-btn {
+   margin-bottom: 10px;
+   
    @include responsive($med) {
-      margin-bottom: 15px;
       margin-top: -25px;
    }
 }
 
 .table {
    overflow-x: auto;
-   max-width: 400px;
+   max-width: 450px;
 
    @include responsive($med) {
       max-width: 600px;

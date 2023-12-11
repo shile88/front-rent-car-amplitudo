@@ -1,5 +1,3 @@
-import "./index.css";
-
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { I18nextProvider } from "react-i18next";

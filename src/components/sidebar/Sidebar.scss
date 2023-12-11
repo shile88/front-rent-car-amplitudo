@@ -5,13 +5,17 @@
 .sidebar-menu {
     display: flex;
     flex-direction: row;
-
+    background-color: $text-orange !important;
+    height: 100%;
+    padding-top: 15px;
+   
     @include responsive($med) {
         display: flex;
         flex-direction: column;
+        padding-top: 50px;
     }
     .ant-menu-item {
-      
+     
         @include responsive($med) {
             margin-top: 15px !important;
         }
@@ -41,9 +45,6 @@
     } 
 }
 
-.ant-menu {
-    background-color:$bg-orange;
-}
 
 
 

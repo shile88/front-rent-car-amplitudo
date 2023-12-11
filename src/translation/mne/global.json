@@ -31,7 +31,7 @@
       "notes": "Napomene",
       "notesPlaceholder": "Unesite napomene",
       "actions": "Akcije",
-      "emailPlaceholder": "Unesite email",
+      "emailPlaceholder": "Admin:user1@email.com, User:customer2@email.com",
       "country": "Država",
       "countryPlaceholder": "Unesite državu",
       "plateNumber": "Broj tablice",
@@ -54,7 +54,7 @@
       "customer": "Korisnik",
       "customerPlaceholder": "Unesite korisnika",
       "password" : "Sifra",
-      "passwordPlaceholder" : "Unesite sifru",
+      "passwordPlaceholder" : "Sifra: 12345678",
       "createDate" : "Vrijeme rezervacije",
       "rentDay" : "cijena po danu"
     },

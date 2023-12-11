@@ -37,5 +37,17 @@
   .ant-modal-body{
     min-height: 10vh;
     padding: 16px 0;
+
+    .modal-delete {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+     
+      button {
+        height: 50px;
+        width: 75px;
+        cursor: pointer;
+      }
+    }
   }
 }
