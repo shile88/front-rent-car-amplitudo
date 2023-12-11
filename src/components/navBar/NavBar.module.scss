@@ -4,23 +4,25 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 5px 15px;
   border-bottom: 1px solid $bg-gray;
+  padding: 10px 15px;
   text-align: center;
+  justify-content: space-around;
   background-color: $text-gray;
    
   @include responsive($med) { 
     display: flex;
-    
     padding: 5px 30px;
+    justify-content: space-between;
   }
 
   .header-name {
     color: $text-orange;
+    font-size: 22px;
+    font-weight: 700;
 
-    @include responsive($med) {
-      font-weight: 800;
+    @include responsive($med) { 
+      font-size: 40px;
     }
   }
 }

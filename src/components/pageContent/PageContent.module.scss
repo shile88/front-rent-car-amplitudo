@@ -32,6 +32,7 @@
 
 .table {
    overflow-x: auto;
+   margin: auto;
    max-width: 450px;
 
    @include responsive($med) {
@@ -39,7 +40,7 @@
    }
 
    @include responsive($lg) {
-      max-width: 800px;
+      max-width: 1000px;
    }
 
    @include responsive($xl) {

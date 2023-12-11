@@ -10,7 +10,7 @@ function NavBar({t, handleChangeLanguage}) {
 
   return (
     <header className={classes.header}>
-      <Image width={150} src={Logo} preview={false}/>
+      <Image width={140} src={Logo} preview={false}/>
       
       <Space>
         <Typography.Title className={classes['header-name']}>

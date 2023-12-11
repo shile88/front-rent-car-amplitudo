@@ -99,9 +99,9 @@ const Vehicles = () => {
     openDeleteModal
       ? open(
         t('modal.delete'),
-          <div>
-            <button onClick={() => onDelete(id)}>{t('modal.buttonYes')}</button>
-            <button onClick={() => closeForm()}>{t('modal.buttonNo')}</button>
+          <div className="modal-delete">
+            <Button onClick={() => onDelete(id)} label={t('modal.buttonYes')} />
+            <Button onClick={() => closeForm()} label={t('modal.buttonNo')}/>
           </div>
         )
       : open(
